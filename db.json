@@ -34,10 +34,10 @@
       },
       {
         "id": 5,
-        "name": " ",
-        "image": " ",
-        "ingredients": " ",
-        "instructions": " ",
+        "name": "Turkey Burgers ",
+        "image": "https://www.allrecipes.com/thmb/vZTImul92n7RRkv7Sa5JuejMPv0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/697161-d1f5222182b44badb30b88efa4eb8f81.jpg ",
+        "ingredients": "1 pound ground turkey, 1 packet dry onion soup mix, ½ cup water, ½ teaspoon salt, and ½ teaspoon ground black pepper.",
+        "instructions": "Preheat a grill for high heat. In a large bowl, combine the ground turkey, soup mix, and water. Season with salt and pepper. Mix lightly using your hands, and form into 4 patties. Lightly oil the grill grate. Grill patties 5 to 10 minutes per side, until well done.",
         "favorite": true
       }
     ]
