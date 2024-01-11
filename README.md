@@ -32,4 +32,5 @@ Issues
 -If you encounter any issues or have suggestions for improvements, please feel free to open an issue or contribute to the project.
 
 Recipe Sources
--
+- 20 Easy Dinners You Only Need 3 Ingredients to Make: 
+"https://www.allrecipes.com/gallery/3-ingredient-recipes-for-dinner/"
