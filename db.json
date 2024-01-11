@@ -1,0 +1,44 @@
+{
+    "recipes": [
+      {
+        "id": 1,
+        "name": " ",
+        "image": " ",
+        "ingredients": " ",
+        "instructions": " ",
+        "favorite": true
+      },
+      {
+        "id": 2,
+        "name": " ",
+        "image": " ",
+        "ingredients": " ",
+        "instructions": " ",
+        "favorite": true
+      },
+      {
+        "id": 3,
+        "name": " ",
+        "image": " ",
+        "ingredients": " ",
+        "instructions": " ",
+        "favorite": false
+      },
+      {
+        "id": 4,
+        "name": " ",
+        "image": " ",
+        "ingredients": " ",
+        "instructions": " ",
+        "favorite": true
+      },
+      {
+        "id": 5,
+        "name": " ",
+        "image": " ",
+        "ingredients": " ",
+        "instructions": " ",
+        "favorite": true
+      }
+    ]
+  }
