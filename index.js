@@ -1,34 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-  renderRecipes();
-});
-
-function fetchData() {
-  fetch('https://localhost:3000/recipes')
-    .then((resp) => resp.json())
-    .then((data) => console.log(data));
-}
-
-const recipeForm = document.getElementById("recipeForm");
-const recipeContainer = document.getElementById("recipe-container");
-const ingredientsContainer = document.getElementById("ingredients-container");
-const instructionsContainer = document.getElementById("instructions-container");
-
-recipeForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("Submitted Successfully!");
-
-  let newRecipe = {
-    name: e.target.recipeName.value,
-    image: e.target.recipeImage.value,
-    ingredients: e.target.recipeIngredients.value,
-    instructions: e.target.recipeInstructions.value
-  };
-
-  createNewRecipe(newRecipe);
-  recipeForm.reset();
-});
-
-function showRecipes(recipe) {
+    renderRecipes();
+  });
+  
+  let showAllRecipes = true;
+  
+  const recipeForm = document.getElementById("recipeForm");
+  const recipeContainer = document.getElementById("recipe-container");
+  const ingredientsContainer = document.getElementById("ingredients-container");
+  const instructionsContainer = document.getElementById("instructions-container");
+  
+  recipeForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("Submitted Successfully!");
+  
+    let newRecipe = {
+      name: e.target.recipeName.value,
+      image: e.target.recipeImage.value,
+      ingredients: e.target.recipeIngredients.value,
+      instructions: e.target.recipeInstructions.value
+    };
+  
+    createNewRecipe(newRecipe);
+    recipeForm.reset();
+  });
+  
+  function showRecipes(recipe) {
     recipeContainer.replaceChildren();
     ingredientsContainer.replaceChildren();
     instructionsContainer.replaceChildren();
@@ -38,34 +34,26 @@ function showRecipes(recipe) {
     recipeDescription.textContent = recipe.name;
     recipeContainer.appendChild(recipeDescription);
   
-    let img = document.createElement("img");
-    img.src = recipe.image;
-    recipeContainer.appendChild(img);
+    if (showAllRecipes) {
+      let ingredientsList = document.createElement("ul");
+      let ingredients = recipe.ingredients.split(",").map(ingredient => ingredient.trim());
+      ingredients.forEach(ingredient => {
+        let ingredientItem = document.createElement("li");
+        ingredientItem.textContent = ingredient;
+        ingredientsList.appendChild(ingredientItem);
+      });
   
-    let ingredientsList = document.createElement("ul");
-    let ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : recipe.ingredients.split(",");
-    ingredients.forEach((ingredient) => {
-      let ingredientItem = document.createElement("li");
-      ingredientItem.textContent = ingredient.trim();
-      ingredientsList.appendChild(ingredientItem);
-    });
+      ingredientsContainer.appendChild(ingredientsList);
   
-    ingredientsContainer.appendChild(ingredientsList);
-  
-    let instructionsText = document.createElement("p");
-    instructionsText.textContent = recipe.instructions;
-    instructionsContainer.appendChild(instructionsText);
+      let instructionsText = document.createElement("p");
+      instructionsText.textContent = recipe.instructions;
+      instructionsContainer.appendChild(instructionsText);
+    }
   }
   
   function renderRecipes() {
     recipeContainer.replaceChildren();
-    fetch("http://localhost:3000/recipes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    })
+    fetch("http://localhost:3000/recipes")
       .then((resp) => resp.json())
       .then((recipes) => {
         recipes.forEach((recipe) => {
@@ -73,6 +61,9 @@ function showRecipes(recipe) {
           card.classList = "recipe-card";
           const img = document.createElement("img");
           img.src = recipe.image;
+          img.addEventListener("error", (e) => {
+            console.error("Error loading image:", e);
+          });
           const name = document.createElement("p");
           name.textContent = recipe.name;
   
@@ -81,7 +72,6 @@ function showRecipes(recipe) {
   
           card.addEventListener("click", () => {
             showRecipes(recipe);
-            console.log(recipe);
           });
   
           recipeContainer.appendChild(card);
@@ -91,18 +81,38 @@ function showRecipes(recipe) {
         console.error("Error:", error.message);
       });
   }
-const showAllButton = document.getElementById("showAllButton");
-showAllButton.addEventListener("click", toggleShowAllRecipes);
-
-let showAllRecipes = false;
-
-function toggleShowAllRecipes() {
-  showAllRecipes = !showAllRecipes;
-  if (showAllRecipes) {
-    ingredientsContainer.style.display = "none";
-    instructionsContainer.style.display = "none";
-  } else {
-    ingredientsContainer.style.display = "";
-    instructionsContainer.style.display = "";
-  }
-}
+  
+  const showAllButton = document.getElementById("showAllButton");
+  showAllButton.addEventListener("click", () => {
+    showAllRecipes = true;
+    ingredientsContainer.replaceChildren();
+    instructionsContainer.replaceChildren();
+  
+    fetch("http://localhost:3000/recipes")
+      .then((resp) => resp.json())
+      .then((recipes) => {
+        recipes.forEach((recipe) => {
+          const card = document.createElement("div");
+          card.classList = "recipe-card";
+          const img = document.createElement("img");
+          img.src = recipe.image;
+          img.addEventListener("error", (e) => {
+            console.error("Error loading image:", e);
+          });
+          const name = document.createElement("p");
+          name.textContent = recipe.name;
+  
+          card.appendChild(img);
+          card.appendChild(name);
+  
+          card.addEventListener("click", () => {
+            showRecipes(recipe);
+          });
+  
+          recipeContainer.appendChild(card);
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
+      });
+  });
