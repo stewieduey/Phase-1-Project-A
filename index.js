@@ -42,20 +42,15 @@ function showRecipes(recipe) {
     img.src = recipe.image;
     recipeContainer.appendChild(img);
   
-    if (Array.isArray(recipe.ingredients)) {
-      let ingredientsList = document.createElement("ul");
-      recipe.ingredients.forEach(ingredient => {
-        let ingredientItem = document.createElement("li");
-        ingredientItem.textContent = ingredient;
-        ingredientsList.appendChild(ingredientItem);
-      });
+    let ingredientsList = document.createElement("ul");
+    let ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : recipe.ingredients.split(",");
+    ingredients.forEach((ingredient) => {
+      let ingredientItem = document.createElement("li");
+      ingredientItem.textContent = ingredient.trim();
+      ingredientsList.appendChild(ingredientItem);
+    });
   
-      ingredientsContainer.appendChild(ingredientsList);
-    } else {
-      let errorText = document.createElement("p");
-      errorText.textContent = "Ingredients not available";
-      ingredientsContainer.appendChild(errorText);
-    }
+    ingredientsContainer.appendChild(ingredientsList);
   
     let instructionsText = document.createElement("p");
     instructionsText.textContent = recipe.instructions;
