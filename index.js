@@ -34,6 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
     recipeDescription.textContent = recipe.name;
     recipeContainer.appendChild(recipeDescription);
   
+    let img = document.createElement("img");
+    img.src = recipe.image;
+    img.addEventListener("error", (e) => {
+      console.error("Error loading image:", e);
+    });
+    recipeContainer.appendChild(img);
+  
     if (showAllRecipes) {
       let ingredientsList = document.createElement("ul");
       let ingredients = recipe.ingredients.split(",").map(ingredient => ingredient.trim());
@@ -87,32 +94,5 @@ document.addEventListener("DOMContentLoaded", () => {
     showAllRecipes = true;
     ingredientsContainer.replaceChildren();
     instructionsContainer.replaceChildren();
-  
-    fetch("http://localhost:3000/recipes")
-      .then((resp) => resp.json())
-      .then((recipes) => {
-        recipes.forEach((recipe) => {
-          const card = document.createElement("div");
-          card.classList = "recipe-card";
-          const img = document.createElement("img");
-          img.src = recipe.image;
-          img.addEventListener("error", (e) => {
-            console.error("Error loading image:", e);
-          });
-          const name = document.createElement("p");
-          name.textContent = recipe.name;
-  
-          card.appendChild(img);
-          card.appendChild(name);
-  
-          card.addEventListener("click", () => {
-            showRecipes(recipe);
-          });
-  
-          recipeContainer.appendChild(card);
-        });
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
+    renderRecipes();
   });
