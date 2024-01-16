@@ -1,33 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => 
-renderRecipes()
-);
-
- function fetchData(){
-    fetch('https://localhost:3000/recipes')
-    .then((resp) => resp.json())
-    .then((data) => console.log(data))
- };
-
- const recipeForm  = document.getElementById("recipeForm");
- const recipeContainer = document.getElementById("recipe-container");
- const ingredientsContainer = document.getElementById("ingredients-container");
- const instructionsContainer  = document.getElementById("instructions-container");
-
- recipeForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log("Submitted Successfully!");
-
-    let newRecipe = {
-        name:e.target.recipeName.value,
-        image:e.target.recipeImage.value,
-        ingredients: e.target.recipeIngredients.value,
-        instructionsContainer: e.target.recipeInstructions.value
-    };
-
-    createNewRecipe(newRecipe);
-    recipeForm.reset();
+document.addEventListener("DOMContentLoaded", () => {
+  renderRecipes();
 });
 
+function fetchData() {
+  fetch('https://localhost:3000/recipes')
+    .then((resp) => resp.json())
+    .then((data) => console.log(data));
+}
+
+const recipeForm = document.getElementById("recipeForm");
+const recipeContainer = document.getElementById("recipe-container");
+const ingredientsContainer = document.getElementById("ingredients-container");
+const instructionsContainer = document.getElementById("instructions-container");
+
+recipeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Submitted Successfully!");
+
+  let newRecipe = {
+    name: e.target.recipeName.value,
+    image: e.target.recipeImage.value,
+    ingredients: e.target.recipeIngredients.value,
+    instructions: e.target.recipeInstructions.value
+  };
+
+  createNewRecipe(newRecipe);
+  recipeForm.reset();
+});
 
 function showRecipes(recipe) {
     recipeContainer.replaceChildren();
@@ -37,9 +36,11 @@ function showRecipes(recipe) {
     let recipeDescription = document.createElement("p");
     recipeDescription.classList = "recipe-description";
     recipeDescription.textContent = recipe.name;
-    console.log("Recipe desc:", recipeDescription);
-    console.log(recipeContainer);
     recipeContainer.appendChild(recipeDescription);
+  
+    let img = document.createElement("img");
+    img.src = recipe.image;
+    recipeContainer.appendChild(img);
   
     if (Array.isArray(recipe.ingredients)) {
       let ingredientsList = document.createElement("ul");
@@ -94,14 +95,4 @@ function showRecipes(recipe) {
       .catch((error) => {
         console.error("Error:", error.message);
       });
-    }
-  //The display my faves toggle button event listener
-  const showFavesButton = document.getElementById("showFavesButton");
-  showFavesButton.addEventListener("click", toggleFavoriteRecipes);
-  
-  let showOnlyFavorites = false;
-  
-  function toggleFavoriteRecipes() {
-    showOnlyFavorites = !showOnlyFavorites;
-    renderRecipes();
   }
