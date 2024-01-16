@@ -58,7 +58,7 @@ function renderRecipes() {
       })
         .then((resp) => resp.json())
         .then((recipes) => {
-          heroes.map((recipe) => {
+          recipes.map((recipe) => {
             const card = document.createElement("div");
             card.classList = "recipe-card";
             const img = document.createElement("img");
@@ -77,4 +77,10 @@ function renderRecipes() {
             recipeContainer.append(card);
             // return card;
           });
-    
+             //   recipeContainer.append(...heroElements);
+    })
+    .catch((error) => {
+      console.error("Hello from the othersiiiiiiide!!!", error.message);
+      //added this to let me know if something is wrong in a fun way.
+    });
+}
