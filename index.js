@@ -84,3 +84,14 @@ function renderRecipes() {
       //added this to let me know if something is wrong in a fun way.
     });
 }
+
+  //The display my faves toggle button event listener
+  const showFavesButton = document.getElementById("showFavesButton");
+  showFavesButton.addEventListener("click", toggleFavoriteRecipes);
+  
+  let showOnlyFavorites = false;
+  
+  function toggleFavoriteRecipes() {
+    showOnlyFavorites = !showOnlyFavorites;
+    renderRecipes();
+  }
