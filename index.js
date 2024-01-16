@@ -91,3 +91,18 @@ function showRecipes(recipe) {
         console.error("Error:", error.message);
       });
   }
+const showAllButton = document.getElementById("showAllButton");
+showAllButton.addEventListener("click", toggleShowAllRecipes);
+
+let showAllRecipes = false;
+
+function toggleShowAllRecipes() {
+  showAllRecipes = !showAllRecipes;
+  if (showAllRecipes) {
+    ingredientsContainer.style.display = "none";
+    instructionsContainer.style.display = "none";
+  } else {
+    ingredientsContainer.style.display = "";
+    instructionsContainer.style.display = "";
+  }
+}
