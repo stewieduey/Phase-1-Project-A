@@ -13,14 +13,29 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     console.log("Submitted Successfully!");
   
-    let newRecipe = {
+    let formData = {
       name: e.target.recipeName.value,
       image: e.target.recipeImage.value,
       ingredients: e.target.recipeIngredients.value,
       instructions: e.target.recipeInstructions.value
     };
   
-    createNewRecipe(newRecipe);
+    fetch("http://localhost:3000/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("New recipe added:", data);
+        renderRecipes();
+      })
+      .catch((error) => {
+        console.error("Error adding new recipe:", error);
+      });
+  
     recipeForm.reset();
   });
   
@@ -96,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     instructionsContainer.replaceChildren();
     renderRecipes();
   });
-
+  
   //The display my faves toggle button event listener
   const showFavesButton = document.getElementById("showFavesButton");
   showFavesButton.addEventListener("click", toggleFavoriteRecipes);
@@ -107,41 +122,3 @@ document.addEventListener("DOMContentLoaded", () => {
     showOnlyFavorites = !showOnlyFavorites;
     renderRecipes();
   }
-  
-  function renderRecipes() {
-    recipeContainer.replaceChildren();
-  
-    fetch("http://localhost:3000/recipes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((recipes) => {
-        const filteredRecipes = recipes.filter((recipe) => showOnlyFavorites ? recipe.favorite : true);
-  
-        filteredRecipes.forEach((recipe) => {
-          const card = document.createElement("div");
-          card.classList = "recipe-card";
-          const img = document.createElement("img");
-          img.src = recipe.image;
-          const name = document.createElement("p");
-          name.textContent = recipe.name;
-  
-          card.appendChild(img);
-          card.appendChild(name);
-  
-          card.addEventListener("click", () => {
-            showRecipes(recipe);
-            console.log(recipe);
-          });
-  
-          recipeContainer.append(card);
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching heroes:", error.message);
-      });
-  }
-  
