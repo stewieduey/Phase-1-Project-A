@@ -96,3 +96,52 @@ document.addEventListener("DOMContentLoaded", () => {
     instructionsContainer.replaceChildren();
     renderRecipes();
   });
+
+  //The display my faves toggle button event listener
+  const showFavesButton = document.getElementById("showFavesButton");
+  showFavesButton.addEventListener("click", toggleFavoriteRecipes);
+  
+  let showOnlyFavorites = false;
+  
+  function toggleFavoriteRecipes() {
+    showOnlyFavorites = !showOnlyFavorites;
+    renderRecipes();
+  }
+  
+  function renderRecipes() {
+    recipeContainer.replaceChildren();
+  
+    fetch("http://localhost:3000/recipes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((recipes) => {
+        const filteredRecipes = recipes.filter((recipe) => showOnlyFavorites ? recipe.favorite : true);
+  
+        filteredRecipes.forEach((recipe) => {
+          const card = document.createElement("div");
+          card.classList = "recipe-card";
+          const img = document.createElement("img");
+          img.src = recipe.image;
+          const name = document.createElement("p");
+          name.textContent = recipe.name;
+  
+          card.appendChild(img);
+          card.appendChild(name);
+  
+          card.addEventListener("click", () => {
+            showRecipes(recipe);
+            console.log(recipe);
+          });
+  
+          recipeContainer.append(card);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching heroes:", error.message);
+      });
+  }
+  
