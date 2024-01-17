@@ -28,7 +28,7 @@ Usage
 Development
 -The web app is built using HTML, CSS and JavaScript.
 -It uses the Fetch API to retrieve recipe data from a JSON file that I made.
--Event listeners are used to handle interactions like displaying the recipes, their ingredients, how to cook and prepare, and filtering DuMark's favorites.
+-Event listeners are used to handle interactions like displaying the recipes, their ingredients, how to cook the recipe, and filtering DuMark's favorites.
 
 Issues
 -If you encounter any issues or have suggestions for improvements, please feel free to open an issue or contribute to the project.
