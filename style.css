@@ -47,15 +47,24 @@ body {
   .ingredients-container {
     font-size: 20px;
     margin: 10px 0;
-    color: #A87100;
+    color: black;
     font-weight: 700;
     font-family: 'georgia', serif;
   }
   
+  .ingredients-container ul {
+    padding-left: 0; /* Reset the default padding of the ul element */
+    list-style: none; /* Remove the default bullet point */
+  }
+  
+  .ingredients-container li {
+    margin-bottom: 5px; /* Adjust the margin between each ingredient item */
+  }
+  
   .instructions-container {
-    font-size: 20px;
+    font-size: 15px;
     margin: 10px 0;
-    color: #A87100;
+    color: black;
     font-weight: 700;
     font-family: 'georgia', serif;
   }
