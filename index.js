@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    changeBackgroundColor();
     renderRecipes();
-  });
+    });
+
+    function changeBackgroundColor() {
+        const colors = ["#F8EAD6", "#E5A28A", "#BF5A36", "#A87100", "#704214"];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        document.body.style.backgroundColor = colors[randomIndex];
+        }
   
   let showAllRecipes = true;
   
