@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       image: e.target.recipeImage.value,
       ingredients: e.target.recipeIngredients.value,
       instructions: e.target.recipeInstructions.value,
-      favorite: false,
+      favorite: false, //new recipes wont be favorites to save time
     };
   
     fetch("http://localhost:3000/recipes", {
