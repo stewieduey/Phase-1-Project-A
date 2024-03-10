@@ -11,7 +11,6 @@ Features
 -Display Recipes: Clicking on a recipe's image reveals the actual recipe. This information is displayed in a dedicated Recipe area on the web page.
 -Filter Favorites: The "My Faves" button allows users to filter the list to display only DuMark's favorite recipes, to then switch back to normal when the same button is clicked.
 -Show All Recipes: This will revert the application to normal, showing all recipes even the newly added one.
--Delete a Recipe: This will allow users to delete recipes from the webpage.
 
 Run the JSON
 -Before opening the web app, please make sure to run the JSON server. To do so please follow these steps:
